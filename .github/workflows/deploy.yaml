@@ -27,9 +27,6 @@ jobs:
     - name: Package application
       run: zip -r deploy.zip .
 
-    - name: Print AWS Credentials (Debug Step)
-      run: echo "AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}"
-
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v21
       with:
@@ -44,3 +41,4 @@ jobs:
         existing_bucket_name: 'elasticbeanstalk-eu-central-1-123456789012'
         wait_for_deployment: true
         wait_for_environment_recovery: true
+        use_existing_version_if_available: true
