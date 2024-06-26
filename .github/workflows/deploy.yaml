@@ -24,17 +24,20 @@ jobs:
     - name: Build project
       run: npm run build
 
-    - name: Create deployment package
+    - name: Package application
       run: zip -r deploy.zip .
 
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v21
       with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-        application_name: frontend
-        environment_name: Frontend-env
-        existing_bucket_name: elasticbeanstalk-eu-central-1-123456789012
-        region: eu-central-1
-        version_label: ${{ github.sha }}
-        deployment_package: deploy.zip
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: 'frontend'
+        environment_name: 'Frontend-env'
+        region: 'eu-central-1'
+        version_label: ${{ github.sha }}-${{ github.run_id }}
+        version_description: 'Deployment from GitHub Actions'
+        deployment_package: 'deploy.zip'
+        existing_bucket_name: 'elasticbeanstalk-eu-central-1-123456789012'
+        wait_for_deployment: true
+        wait_time: 30
