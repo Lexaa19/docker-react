@@ -40,4 +40,4 @@ jobs:
         deployment_package: 'deploy.zip'
         existing_bucket_name: 'elasticbeanstalk-eu-central-1-123456789012'
         wait_for_deployment: true
-        wait_time: 30
+        wait_for_environment_recovery: true
